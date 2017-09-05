@@ -1,0 +1,216 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="Cinema_2._0.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title><%=title%></title>
+
+
+    <!--Import Google Icon Font-->
+    <link rel="icon" href="/img/icon/appIcon.png" />
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons" />
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!-- Stylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/gallery-materialize.min.opt.css" />
+
+    <script>
+        //$(document).ready(function () {
+        //    $('select').material_select();
+        //});
+        function changeCity($i) {
+            window.location.href = $i
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="background: #3b3e4a;">
+    <form id="form1" runat="server">
+
+        <nav class="nav-extended blue-grey">
+            <div class="nav-background">
+                <div class="ea k" style="background-image: url('img/banner.jpg');"></div>
+            </div>
+            <div class="nav-wrapper db">
+                <a href="default.aspx" class="brand-logo"><i class="material-icons">store</i>Cinema</a>
+                <ul class="bt hide-on-med-and-down">
+                    <li><a href='#'>Giới thiệu</a></li>
+                    <li><a href="#">Liên hệ<i class="material-icons bt small">info_outline</i> </a></li>
+                </ul>
+
+                <div class="nav-header de">
+                    <a href="default.aspx">
+                        <h1>LỊCH CHIẾU PHIM
+                            <!--<br />
+                            <%=DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")%>-->
+                        </h1>
+                    </a>
+                    <div class="ge">Đặt vé và tra cứu thông tin khuyến mãi, vé xem phim, phim mới, rạp phim.</div>
+                    <center>
+                        <div class="input-field" style="width:350px">
+                            <select class="green-text" style="display: block; font-size: 18px" onchange="changeCity(value);">
+                                <option selected class="blue-grey-text" style="font-size: 18px" value="" disabled>&nbsp;&nbsp;Chọn thành phố của bạn</option>
+                                <% foreach (var city in listCity)
+                                    { %>
+                                <option <%=this.city == city.id ? "selected" : "" %> class="green-text" style="font-size: 18px" value = '<%=Request.Url.AbsolutePath + "?city=" + city.id %>'>&nbsp;&nbsp;<%=city.name %></option>
+                                <%} %>
+                            </select>
+                        </div>
+                      </center>
+                </div>
+            </div>
+            <!--
+            <div class="right white card"
+                style="position: absolute; bottom: 150px !important; right: 0px !important; 
+                border-bottom-left-radius: 8px; border-top-left-radius: 8px ;
+                border-bottom-right-radius: 0px; border-top-right-radius: 0px; 
+                padding: 15px 15px 15px 15px !important; width: 200px !important">
+                <a href="https://www.facebook.com/buttiensinh/"
+                    target="_blank" 
+                    class="green-text row" 
+                    style="z-index: 101; font-size: 16px !important; position: absolute !important; bottom: 15px !important;">
+                    <b>Fanpage Ông Bụt</b>
+                </a>
+                <div style="z-index: 100" 
+                    class="fb-like"
+                    data-href="https://www.facebook.com/buttiensinh/"
+                    data-layout="button_count"
+                    data-action="like"
+                    data-size="large"
+                    data-show-faces="true"
+                    data-share="true">
+                </div>
+            </div>
+            -->
+            <div class="right white card"
+                style="position: absolute; bottom: 50px !important; right: 0px !important; 
+                border-bottom-left-radius: 8px; border-top-left-radius: 8px ; 
+                border-bottom-right-radius: 0px; border-top-right-radius: 0px;
+                padding: 15px 15px 15px 15px !important; width: 200px !important">
+                <a target="_blank"
+                     href="https://www.facebook.com/LichChieuVN/"
+                     class="green-text row" 
+                    style="z-index: 101; font-size: 16px !important; position: absolute !important; bottom: 15px !important;">
+                    <b>Lịch Chiếu Phim</b>
+                </a>
+                <div style="z-index: 100"  
+                    class="fb-like"
+                    data-href="https://www.facebook.com/LichChieuVN/"
+                    data-layout="button_count"
+                    data-action="like"
+                    data-size="large"
+                    data-show-faces="true"
+                    data-share="true">
+                </div>
+            </div>
+
+            <!-- Fixed Masonry Filters -->
+            <div class="categories-wrapper af">
+                <div class="categories-container green">
+                    <ul class="db hide-on-large-only">
+                        <li><a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a></li>
+                        <li style="height: 100% !important"><a style="height: 100% !important" href="default.aspx">
+                            <h5 style="height: 100% !important">Lịch Chiếu Phim</h5>
+                        </a></li>
+                    </ul>
+                    <ul class="categories db hide-on-med-and-down">
+                        <li class="<%=Request.Url.AbsolutePath.Contains("default.aspx") ? "k" : ""%>"><a style="font-size: 18px;" href="default.aspx"><i class="material-icons cr small left">home</i>Trang Chủ</a></li>
+                        <li class="<%=Request.Url.AbsolutePath.Contains("listfilm.aspx")||Request.Url.AbsolutePath.Contains("detailfilm.aspx")||Request.Url.AbsolutePath.Contains("filmschedule.aspx") ? "k" : ""%>"><a style="font-size: 16px;" href="listfilm.aspx">Danh Sách Phim</a></li>
+                        <li class="<%=Request.Url.AbsolutePath.Contains("listevent.aspx")||Request.Url.AbsolutePath.Contains("detailevent.aspx") ? "k" : ""%>"><a style="font-size: 16px;" href="listevent.aspx">Khuyến Mãi</a></li>
+                        <li class="<%=Request.Url.AbsolutePath.Contains("listcinema.aspx")||Request.Url.AbsolutePath.Contains("detailcinema.aspx") ? "k" : ""%>"><a style="font-size: 16px;" href="listcinema.aspx">Cụm Rạp</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <ul class="side-nav waves-effect" id="nav-mobile">
+            <li class="<%=Request.Url.AbsolutePath.Contains("default.aspx") ? "k" : ""%>"><a style="font-size: 18px;" href="default.aspx"><i class="material-icons cr small left">home</i>Trang Chủ</a></li>
+            <li class="<%=Request.Url.AbsolutePath.Contains("listfilm.aspx") ? "k" : ""%>"><a style="font-size: 16px;" href="listfilm.aspx"><i class="material-icons cr small left">play_arrow</i>Danh Sách Phim</a></li>
+            <li class="<%=Request.Url.AbsolutePath.Contains("listevent.aspx") ? "k" : ""%>"><a style="font-size: 16px;" href="listevent.aspx"><i class="material-icons cr small left">play_arrow</i>Khuyến Mãi</a></li>
+            <li class="<%=Request.Url.AbsolutePath.Contains("listevent.aspx") ? "k" : ""%>"><a style="font-size: 16px;" href="#cr"><i class="material-icons cr small left">play_arrow</i>Cụm Rạp</a></li>
+            <li><a style="font-size: 16px;" href='#'><i class="material-icons cr small left">play_arrow</i>Giới thiệu</a></li>
+            <li><a style="font-size: 16px;" href="#"><i class="material-icons cr small">info_outline</i>Liên hệ</a></li>
+        </ul>
+
+        <div class="container" style="width: 80% !important">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <footer class="page-footer blue-grey">
+            <div class="fixed-action-btn">
+                <a id="btnShare" class="btn-floating btn-large green pulse"><i class="material-icons">share</i></a>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 m7 s12">
+                        <h5 class="white-text">Liên hệ</h5>
+                        <ul class="white-text">
+                            <li>Số điện thoại : <a class="grey-text text-lighten-3" href="#!">0962984270</a></li>
+                            <li>Email : <a class="grey-text text-lighten-3" href="#!">tranhoanglamkcr@gmail.com</a></li>
+                            <li>Facebook : <a target="_blank" class="grey-text text-lighten-3" href="https://fb.com/tranhoanglamkcr"><b>Nukan Trần</b></a></li>
+                        </ul>
+                    </div>
+                    <div class="col l4 m5 offset-l2 s12">
+                        <div                            
+                            data-href="<%="http://" + Request.Url.Host + "/"%>"
+                            class="fb-like"
+                            data-share="true"
+                            data-layout="standard"
+                            data-action="like"
+                            data-size="large"
+                            data-show-faces="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2017 Copyright <a target="_blank" class="white-text" href="https://fb.com/tranhoanglamkcr"><b>Nukan Trần</b></a>
+                    <p class="grey-text text-lighten-4 right">❂ <%= Application["Access"].ToString()%> lượt truy cập, <%= Application["Online"].ToString()%> đang online</p>
+                </div>
+            </div>
+        </footer>
+
+
+    </form>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/gallery.min.opt.js"></script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '198136170697352',
+                xfbml: true,
+                version: 'v2.9'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.9&appId=198136170697352";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        document.getElementById('btnShare').onclick = function () {
+            FB.ui({
+                method: 'share',
+                href: window.location.href,
+                action_properties: JSON.stringify({
+                    object: window.location.href,
+                })
+            }, function (response) { });
+        }
+    </script>
+</body>
+</html>
